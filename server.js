@@ -1,4 +1,6 @@
+
 const app = require("./app");
+const connectDatabase = require("./db/database");
 // const connectDatabase = require("./db/Database");
 
 
@@ -8,7 +10,8 @@ app.listen(PORT, () => {
     console.log(`server started at http://localhost:${PORT}`)
 })
 
-
+// mongodb
+connectDatabase();
 
 
 // Handling uncaught Exception
