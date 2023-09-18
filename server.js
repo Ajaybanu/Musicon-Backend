@@ -5,7 +5,7 @@ const connectDatabase = require("./db/database");
 
 
 
-PORT =4000
+PORT =8000
 app.listen(PORT, () => {
     console.log(`server started at http://localhost:${PORT}`)
 })

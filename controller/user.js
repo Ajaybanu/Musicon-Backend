@@ -4,13 +4,13 @@ const router = express.Router();
 const {upload} = require("../middileware/multer");
 const ErrorHandler = require("../utils/ErrorHandler");
 
-router.post("/create-user",upload.single("file"), async (req,res)=>{
+
+router.post("/create-user",upload.single("file"), async (req,res,next)=>{
     const {name,email,number,password}=req.body;
     const userEmail = await User.findone({email});
 
     if(userEmail){
             return next(new ErrorHandler("user already exist", 400));
-
     }
     const filename = req.file.filename;
     const fileUrl =path.join(filename);
@@ -22,9 +22,13 @@ router.post("/create-user",upload.single("file"), async (req,res)=>{
     email: email,
     number: number,
     password: password,
-    avatr : fileUrl
+    avatar : fileUrl,
 };
-console.log(user)
+const newUser = await User.create(user);
+res.status(201).json({
+    success: true,
+    newUser,
+})
 })
  
 module.exports = router;
